@@ -96,6 +96,7 @@ def main():
                     base_cas = True
                     screen.fill(black)
                     create_obj()
+                    count = 0
                 elif event.key == pg.K_c:
                     print(count)
             if base_cas:
