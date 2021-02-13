@@ -66,19 +66,29 @@ l_case = []
 base_cas = True
 running = True
 
-for i in range(160):
-    for j in range(160):
-        l_case.append(Make_rect(j * 5 + 1, i * 5 + 1))
 
-for i in l_case:
-    pg.draw.rect(screen, black, i.set_rect())
-l_copy = l_case.copy()
+def create_obj():
+    for i in range(160):
+        for j in range(160):
+            l_case.append(Make_rect(j * 5 + 1, i * 5 + 1))
+
+    for i in l_case:
+        pg.draw.rect(screen, black, i.set_rect())
+
+
+create_obj()
 
 while running:
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
             running = False
+        elif event.type == pg.KEYDOWN:
+            if event.key == pg.K_s:
+                l_case = []
+                base_cas = True
+                screen.fill(black)
+                create_obj()
         if base_cas:
             if event.type == pg.MOUSEBUTTONUP:
                 x, y = event.pos
