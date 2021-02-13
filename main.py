@@ -36,7 +36,7 @@ class Make_rect:
         self.x = get_start(x)
         self.y = get_start(y)
         self.life = black
-        self.next = []
+        self.next = None
         if self.x == 1 or self.x == 781 or self.y == 1 or self.y == 781:
             if (self.x == 1 and self.y == 1) or (self.x == 1 and self.y == 781) or (self.x == 781 and self.y == 1) or (
                     self.x == 781 and self.y == 781):
@@ -77,6 +77,7 @@ for i in range(40):
 
 for i in l_case:
     pg.draw.rect(screen, black, i.set_rect())
+l_copy = l_case.copy()
 
 while running:
 
@@ -99,12 +100,14 @@ while running:
         if not base_cas:
             for c in l_case:
                 if c.life == black and c.get_next() == 3:
-                    c.life = white
+                    c.next = white
                 elif c.life == white and (c.get_next() < 2 or c.get_next() > 3):
-                    c.life = black
+                    c.next = black
             screen.fill(black)
             for c in range(len(l_case)):
                 pg.draw.rect(screen, l_case[c].life, l_case[c].set_rect())
+            for c in l_case:
+                if c.next is not None:
+                    c.life = c.next
     make_grid()
-    pg.time.delay(100)
     pg.display.update()
