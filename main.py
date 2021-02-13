@@ -37,14 +37,6 @@ class Make_rect:
         self.y = get_start(y)
         self.life = black
         self.next = None
-        if self.x == 1 or self.x == 796 or self.y == 1 or self.y == 796:
-            if (self.x == 1 and self.y == 1) or (self.x == 1 and self.y == 796) or (self.x == 796 and self.y == 1) or (
-                    self.x == 796 and self.y == 796):
-                self.ex = 1
-            else:
-                self.ex = 2
-        else:
-            self.ex = 3
 
     def set_rect(self):
         return pg.Rect(self.x, self.y, 4, 4)
@@ -107,7 +99,6 @@ while running:
             elif c.life == white and (c.get_next() < 2 or c.get_next() > 3):
                 c.next = black
         screen.fill(black)
-        pg.time.delay(10)
         for c in range(len(l_case)):
             pg.draw.rect(screen, l_case[c].life, l_case[c].set_rect())
         for c in l_case:
