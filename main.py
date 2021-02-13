@@ -50,21 +50,24 @@ class Make_rect:
         return pg.Rect(self.x, self.y, 19, 19)
 
     def get_next(self):
-        count = 0
+        if self.life == white:
+            count = -1
+        else:
+            count = 0
         start_y = self.y - 20
         for _ in range(3):
             start_x = self.x - 20
             for _ in range(3):
-                for c in l_case:
-                    if c.x == start_x and c.y == start_y and c.life == white:
+                try:
+                    if pg.Surface.get_at(screen, (start_x, start_y)) == white:
                         count += 1
-                        break
+                        if count > 3:
+                            return count
+                except IndexError:
+                    pass
                 start_x += 20
             start_y += 20
-        if self.life == white:
-            return count - 1
-        else:
-            return count
+        return count
 
 
 l_case = []
@@ -104,6 +107,7 @@ while running:
                 elif c.life == white and (c.get_next() < 2 or c.get_next() > 3):
                     c.next = black
             screen.fill(black)
+            pg.time.delay(100)
             for c in range(len(l_case)):
                 pg.draw.rect(screen, l_case[c].life, l_case[c].set_rect())
             for c in l_case:
